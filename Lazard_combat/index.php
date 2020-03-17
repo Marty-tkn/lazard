@@ -30,4 +30,4 @@ while ($playAgain == 1) {
 }
 echo $fight->victoiresHeros , PHP_EOL;
 echo $fight->victoiresMechant , PHP_EOL;
-?>
+
