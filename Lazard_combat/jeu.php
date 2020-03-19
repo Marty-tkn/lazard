@@ -2,7 +2,7 @@
 require_once "personnage.php";
 class jeu
 {
-
+    Bonjour
     public $victoiresHeros = 0;
     public $victoiresMechant = 0;
     public function begin($heros, $mechant)
