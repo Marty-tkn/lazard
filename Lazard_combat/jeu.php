@@ -2,7 +2,6 @@
 require_once "personnage.php";
 class jeu
 {
-    Bonjour
     public $victoiresHeros = 0;
     public $victoiresMechant = 0;
     public function begin($heros, $mechant)
@@ -11,8 +10,9 @@ class jeu
         while ($heros->estVivant()  && $mechant->estVivant()) {
             $tours = $tours + 1;
             echo 'Tours de jeu n°', $tours, ' : ', PHP_EOL;
+            $heros->state();
             $heros->commande($mechant);
-            echo 'Heros attaque', PHP_EOL;
+            $heros->checkState();
             $mechant->estMort();
             $heros->lifeCount($mechant);
 
@@ -20,7 +20,9 @@ class jeu
                 break;
             }
             echo 'Monstre attaque', PHP_EOL;
+            $mechant->state();
             $mechant->commande($heros);
+            $mechant->checkState();
             $heros->estMort();
             $mechant->lifeCount($heros);
         }

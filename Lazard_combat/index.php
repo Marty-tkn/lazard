@@ -2,8 +2,8 @@
 
 require "jeu.php";
 
-$heros = new personnage("Heros", 100, false);
-$mechant = new personnage("Mechant", 100);
+$heros = new personnage("Heros",2, 100, false);
+$mechant = new personnage("Mechant",0, 100);
 
 
 $fight = new jeu();
