@@ -3,9 +3,10 @@
 //index combat
 
 require "Generation_Map/map.php";
+require "Generation_Map/fireCamp.php";
 require "Lazard_combat/jeu.php";
 
-$heros = new personnage("Heros",2, 1, false);
+$heros = new personnage("Heros",2, 100, false);
 
 
 $r = new Room(Room::TREASURE_MONSTER_ROOM, 0, 0);
@@ -22,6 +23,8 @@ $r->setType(Room::ROOM | Room::MONSTER)->setX(1)->setY(5);
 $map = new Map(10);
 //Génére un nombre de ROOM (premier chiffre, donc 10 = 10 ROOM dans 100 WALL)------
 $map->generation(10,1);
+
+$fireCamp= new fireCamp();
 
 echo "Menu 1 pour joueur , 0 pour dev";
 $saisieOk = false;
@@ -90,7 +93,7 @@ if($saisie == 1){
         if($map->mappings[$map->PersoH][$map->PersoV]->_type == 5 || $map->mappings[$map->PersoH][$map->PersoV]->_type == 7 ){
             echo 'combat',PHP_EOL;
             $fight = new jeu();
-            $mechant = new personnage("Mechant",0, 100);
+            $mechant = new personnage("Mechant",0, 1);
             $fight->begin($heros, $mechant,$map);
             unset($mechant);
             $map->mappings[$map->PersoH][$map->PersoV]->_type = 1;
@@ -101,6 +104,9 @@ if($saisie == 1){
             $boss = new personnage("L'emperor",0, 1);
             $fight->begin($heros, $boss,$map);
             unset($boss);
+        }
+        if($map->mappings[$map->PersoH][$map->PersoV]->_type == 65){
+            $fireCamp->regen($heros,$map);
         }
     }
 }
