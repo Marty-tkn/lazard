@@ -5,6 +5,8 @@ require "room.php";
 class Map{
     protected $_mapping;
     private $_size;
+    public $PersoY = 0;
+    public $PersoI = 0;
     
     //Fonction pour créer un tableau représentant la carte (pas encore généré et affiché)-----------
     public function __construct($size=5){
@@ -49,8 +51,90 @@ class Map{
         }
     }
     //Fonction pour afficher la carte ROOM par ROOM pour le joueur
+   
     public function affichageJoueur(){
+        $visite = array();
         
+        $i=0;
+        foreach($this->mappings as $hori){
+            $y=0;
+            foreach($hori as $verti){
+                //Définie le symbole sur le "TERMINAL" ----------------------------------
+                if($this->mappings[$i][$y]->_type==0){
+                    echo '   ';
+                }elseif($this->mappings[$i][$y]->_type == Room::START){
+                    if($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                    }else{
+                        echo '[✪]';
+                    }
+                }elseif($this->mappings[$i][$y]->_type == Room::ROOM){
+                    if($this->mappings[$i][$y-1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i][$y+1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i+1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i-1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || (isset($this->visite[$i][$y]) && $this->visite[$i][$y] == true && ($i != $this->PersoH || $y != $this->PersoV))){
+                        echo '[ ]';
+                        
+                    }elseif($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                        $this->visite[$i][$y] = true;
+                    }else{
+                        echo '   ';
+                    }
+                }elseif($this->mappings[$i][$y]->_type == Room::BOSS){
+                    if($this->mappings[$i][$y-1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i][$y+1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i+1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i-1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || (isset($this->visite[$i][$y]) && $this->visite[$i][$y] == true && ($i != $this->PersoH || $y != $this->PersoV))){
+                        echo '[☠]';
+                        
+                    }elseif($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                        $this->visite[$i][$y] = true;
+                    }else{
+                        echo '   ';
+                    }
+                }elseif ($this->mappings[$i][$y]->_type == Room::ROOM_TREASURE){
+                    if($this->mappings[$i][$y-1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i][$y+1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i+1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i-1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || (isset($this->visite[$i][$y]) && $this->visite[$i][$y] == true && ($i != $this->PersoH || $y != $this->PersoV))){
+                        echo '[€]';
+                        
+                    }elseif($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                        $this->visite[$i][$y] = true;
+                    }else{
+                        echo '   ';
+                    }
+                }elseif ($this->mappings[$i][$y]->_type == Room::ROOM_MONSTER) {
+                    if($this->mappings[$i][$y-1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i][$y+1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i+1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i-1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || (isset($this->visite[$i][$y]) && $this->visite[$i][$y] == true && ($i != $this->PersoH || $y != $this->PersoV))){
+                        echo '[♀]';
+                        
+                    }elseif($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                        $this->visite[$i][$y] = true;
+                    }else{
+                        echo '   ';
+                    }
+                }elseif ($this->mappings[$i][$y]->_type == Room::TREASURE_MONSTER_ROOM) {
+                    if($this->mappings[$i][$y-1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i][$y+1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i+1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i-1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || (isset($this->visite[$i][$y]) && $this->visite[$i][$y] == true && ($i != $this->PersoH || $y != $this->PersoV))){
+                        echo '[⁂]';
+                        
+                    }elseif($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                        $this->visite[$i][$y] = true;
+                    }else{
+                        echo '   ';
+                    }
+                }elseif ($this->mappings[$i][$y]->_type == Room::ROOM_FIRE_CAMP) {
+                    if(($this->mappings[$i][$y-1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i][$y+1] == $this->mappings[$this->PersoH][$this->PersoV] || $this->mappings[$i+1][$y] == $this->mappings[$this->PersoH][$this->PersoV]) || $this->mappings[$i-1][$y] == $this->mappings[$this->PersoH][$this->PersoV] || (isset($this->visite[$i][$y]) && $this->visite[$i][$y] == true && ($i != $this->PersoH || $y != $this->PersoV))){
+                        echo '[♨]';
+                        
+                    }elseif($i == $this->PersoH && $y == $this->PersoV){
+                        echo '[▲]';
+                        $this->visite[$i][$y] = true;
+                    }else{
+                        echo '   ';
+                    }
+                }
+                $y++;
+                $room=false;
+            }
+            echo PHP_EOL;
+            $i++;
+        }
     }
 
     //Cette fonction permet de créer une carte aléatoirement avec un nombre aléatoire de ROOM ----------------------------
@@ -58,6 +142,8 @@ class Map{
         $h = mt_rand(1,$this->_size-2);
         $v = mt_rand(1, $this->_size-2);
         $this->mappings[$h][$v]->_type=Room::START;
+        $this->PersoH = $h;
+        $this->PersoV = $v;
         $compteur = mt_rand(round((mt_rand(60,80)/100*$nbRoom), 0),$nbRoom);
         /* echo $compteur; */
         //Génération de ROOM aléatoire -----------------------------------------
@@ -96,6 +182,9 @@ class Map{
         }
         //Générer un boss en position aléatoire mais toujours au fond d'un couloir----------------------------
         $boss = 0;
+        $finish = array();
+        $fH = 0;
+        $fV = 0;
         while($boss < $nbBoss){
             $hr = mt_rand(0, $this->_size - 1);
             $vr = mt_rand(0, $this->_size - 1);
@@ -104,22 +193,23 @@ class Map{
                     if ($this->mappings[$hr + 1][$vr]->_type != 0 && $this->mappings[$hr][$vr + 1]->_type == 0 && $this->mappings[$hr - 1][$vr]->_type == 0 && $this->mappings[$hr][$vr - 1]->_type == 0) {
                         $this->mappings[$hr][$vr]->_type = Room::BOSS;
                         $boss++;
+                        $this->finish[$fH][$fV] = $this->mappings[$hr][$vr];
                     }
                     if ($this->mappings[$hr + 1][$vr]->_type == 0 && $this->mappings[$hr][$vr + 1]->_type != 0 && $this->mappings[$hr - 1][$vr]->_type == 0 && $this->mappings[$hr][$vr - 1]->_type == 0) {
                         $this->mappings[$hr][$vr]->_type = Room::BOSS;
                         $boss++;
+                        $this->finish[$fH][$fV] = $this->mappings[$hr][$vr];
                     }
                     if ($this->mappings[$hr + 1][$vr]->_type == 0 && $this->mappings[$hr][$vr + 1]->_type == 0 && $this->mappings[$hr - 1][$vr]->_type != 0 && $this->mappings[$hr][$vr - 1]->_type == 0) {
                         $this->mappings[$hr][$vr]->_type = Room::BOSS;
                         $boss++;
+                        $this->finish[$fH][$fV] = $this->mappings[$hr][$vr];
                     }
                     if ($this->mappings[$hr + 1][$vr]->_type == 0 && $this->mappings[$hr][$vr + 1]->_type == 0 && $this->mappings[$hr - 1][$vr]->_type == 0 && $this->mappings[$hr][$vr - 1]->_type != 0) {
                         $this->mappings[$hr][$vr]->_type = Room::BOSS;
                         $boss++;
+                        $this->finish[$fH][$fV] = $this->mappings[$hr][$vr];
                     }
-
-
-
                 }
             }
         }
