@@ -121,8 +121,8 @@ while ($jouerEncore == true) {
             if ($map->mappings[$map->PersoH][$map->PersoV]->_type == 32) {
                 echo 'combat de BOSS', PHP_EOL;
                 $fight = new jeu();
-                $boss = new personnage("L'emperor", 3, 1);
-                $fight->begin($heros, $boss, $map);
+                $boss = new personnage("L'emperor",mt_rand(0,3), mt_rand(20,40));
+                $fight->begin($heros, $boss,$map);
                 unset($boss);
             }
             if ($map->mappings[$map->PersoH][$map->PersoV]->_type == 65) {
