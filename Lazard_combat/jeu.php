@@ -4,7 +4,7 @@ class jeu
 {
     public $victoiresHeros = 0;
     public $victoiresMechant = 0;
-    public function begin($heros, $mechant)
+    public function begin($heros, $mechant,$map)
     {
         $tours = 0;
         while ($heros->estVivant()  && $mechant->estVivant()) {
@@ -28,11 +28,10 @@ class jeu
         }
 
         if ($heros->estVivant($this->victoiresHeros, $this->victoiresMechant)) {
-            echo 'Victory !!!!', PHP_EOL;
-            $this->victoiresHeros += 1;
+            echo 'For the EMPEROR !!';
         } else {
             echo 'GAME OVER';
-            $this->victoiresMechant += 1;
+        die();
         }
     }
 }
