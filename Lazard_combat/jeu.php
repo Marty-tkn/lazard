@@ -4,12 +4,19 @@ class jeu
 {
     public $victoiresHeros = 0;
     public $victoiresMechant = 0;
-    public function begin($heros, $mechant,$map)
+
+
+    public function begin($heros, $mechant, $map)
     {
+
+
         $tours = 0;
         while ($heros->estVivant()  && $mechant->estVivant()) {
             $tours = $tours + 1;
-            echo 'Tours de jeu n°', $tours, ' : ', PHP_EOL;
+
+
+
+            echo '-------------------------------------------------------Tours de jeu n°', $tours, ' : -----------------------------------------------------------------------------', PHP_EOL;
             $heros->state();
             $heros->commande($mechant);
             $heros->checkState();
@@ -19,7 +26,12 @@ class jeu
             if ($mechant->estVivant() == false) {
                 break;
             }
-            echo 'Monstre attaque', PHP_EOL;
+
+
+            echo '****Laping (ADULTE) attaque****', PHP_EOL;
+            echo"(') _ (')",PHP_EOL;
+            echo"(='.'=)",PHP_EOL;
+            echo'(")__(")',PHP_EOL;
             $mechant->state();
             $mechant->commande($heros);
             $mechant->checkState();
@@ -31,7 +43,7 @@ class jeu
             echo 'For the EMPEROR !!';
         } else {
             echo 'GAME OVER';
-        die();
+            die();
         }
     }
 }

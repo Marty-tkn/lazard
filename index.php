@@ -112,16 +112,17 @@ while ($jouerEncore == true) {
             if ($map->mappings[$map->PersoH][$map->PersoV]->_type == 5 || $map->mappings[$map->PersoH][$map->PersoV]->_type == 7) {
                 echo 'combat', PHP_EOL;
                 $fight = new jeu();
-                $mechant = new personnage("Mechant", mt_rand(0, 2), mt_rand(10, 30));
+                $mechant = new personnage("Laping ", mt_rand(0, 2), mt_rand(10, 30));
                 $fight->begin($heros, $mechant, $map);
                 unset($mechant);
                 $map->mappings[$map->PersoH][$map->PersoV]->_type = 1;
+                $map->affichageJoueur() . PHP_EOL;
             }
-            $map->affichageJoueur() . PHP_EOL;
+
             if ($map->mappings[$map->PersoH][$map->PersoV]->_type == 32) {
                 echo 'combat de BOSS', PHP_EOL;
                 $fight = new jeu();
-                $boss = new personnage("L'emperor",mt_rand(0,3), mt_rand(20,40));
+                $boss = new personnage("THE MECREANT",mt_rand(0,3), mt_rand(20,40));
                 $fight->begin($heros, $boss,$map);
                 unset($boss);
             }

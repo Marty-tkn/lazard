@@ -40,7 +40,11 @@ class personnage
             while ($action <= 0 || $action >= 3) {
                 echo "A vous de jouez Héros !", PHP_EOL;
                 echo "1: Attaquer  2: Compétences", PHP_EOL;
+                echo 'Stamina = ', $this->stam, PHP_EOL;
+                echo '--',PHP_EOL;
                 $action = readline();
+                echo '--',PHP_EOL;
+
                 switch ($action) {
                     case 1:
                         $this->attaque($combattant2);
@@ -108,6 +112,12 @@ class personnage
         }
         $combattant2->vie = ($combattant2->vie) - ($this->atk);
         echo  "Attaque lancé !", PHP_EOL;
+        if ($this->estPNJ === false) {
+            echo 'Vous avez infligé ', $this->atk, PHP_EOL;
+        }
+        if ($this->estPNJ === true) {
+            echo 'Vous avez pris ', $this->atk ,' de dégats dans votre mouille', PHP_EOL;
+        }
     }
 
     protected function attaqueCritique($combattant2)
@@ -115,6 +125,12 @@ class personnage
         $this->atk = $this->lancer(2, 5) - $combattant2->armor - $combattant2->bonusArmor;
         $combattant2->vie = ($combattant2->vie) - ($this->atk + 10);
         echo  "ATTAQUE CRITIQUE !!", PHP_EOL;
+        if ($this->estPNJ === false) {
+            echo 'Vous avez infligé ', $this->atk,' de dégats' , PHP_EOL;
+        }
+        if ($this->estPNJ === true) {
+            echo 'Vous avez pris ', $this->atk ,' de dégats dans votre mouille', PHP_EOL;
+        }
     }
 
     protected function attaqueLoupee()
@@ -140,6 +156,12 @@ class personnage
                 case 6: // attaque crit'
                     $combattant2->vie -= $this->atk + 10;
                     echo 'ATTAQUE CRITIQUE !!' . PHP_EOL;
+                    if ($this->estPNJ === false) {
+                        echo 'Vous avez infligé ', $this->atk ,' de dégats' , PHP_EOL;
+                    }
+                    if ($this->estPNJ === true) {
+                        echo 'Vous avez pris ', $this->atk , ' de dégats dans votre mouille' , PHP_EOL;
+                    }
                     break;
 
                 case 1: // attaque loupée
@@ -149,6 +171,12 @@ class personnage
                 default:
                     $combattant2->vie -= $this->atk;
                     echo 'Attaque lourde lancée !' . PHP_EOL;
+                    if ($this->estPNJ === false) {
+                        echo 'Vous avez infligé ', $this->atk,' de dégats' , PHP_EOL;
+                    }
+                    if ($this->estPNJ === true) {
+                        echo 'Vous avez pris ', $this->atk , ' de dégats dans votre mouille', PHP_EOL;
+                    }
             }
             $this->stam -= 60;
         } else {
