@@ -52,7 +52,7 @@ class personnage
                     case 2:
                         $comp = 0;
                         while ($comp <= 0 || $comp >= 5) {
-                            echo '1 : Attaque lourde     2 : Soin' . PHP_EOL . '3 : Défense            4 : Revenir' . PHP_EOL;
+                            echo '1 : Attaque lourde(60 stamina)     2 : Soin (40 stamina)' . PHP_EOL . '3 : Défense (30 stamina)           4 : Revenir' . PHP_EOL;
                             $comp = readline();
                         }
                         switch ($comp) {
@@ -140,10 +140,10 @@ class personnage
     protected function soin()
     {
         echo 'Le Heros se soigne : ', PHP_EOL;
-        $soin = $this->lancer(1, 4);
+        $soin = $this->lancer(10, 20);
         $this->vie = min(100, $this->vie + $soin);
         echo  "Vous vous êtes soigné de " . $soin . " points de vie", PHP_EOL;
-        $this->stam -= 10;
+        $this->stam -= 40;
     }
 
     protected function heavyAtk($combattant2)
