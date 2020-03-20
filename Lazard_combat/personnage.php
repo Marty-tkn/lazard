@@ -28,18 +28,12 @@ class personnage
     {
         if ($this->estPNJ) {
             $action = $this->lancer(1, 6);
-            switch ($action) {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    $this->attaque($combattant2);
-                    break;
-                case 5:
-                case 6:
-                    echo "Attaque lourde lancée",PHP_EOL;
-                    $this->heavyAtk($combattant2);
-                    break;
+            if ($action >= 1 && $action <= 4) {
+                $this->attaque($combattant2);
+            } elseif ($this->stam < 60) {
+                $this->attaque($combattant2);
+            } elseif ($action > 4 && $action <= 6) {
+                $this->heavyAtk($combattant2);
             }
         } else {
             $action = 0;
